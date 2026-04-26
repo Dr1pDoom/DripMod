@@ -35,7 +35,9 @@ public class DisplayerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return pPlayer.distanceToSqr(be.getBlockPos().getCenter()) <= 9;
+        return pPlayer.isCreative()
+                ? pPlayer.distanceToSqr(be.getBlockPos().getCenter()) <= 32
+                : pPlayer.distanceToSqr(be.getBlockPos().getCenter()) < 9;
     }
 
     @Override

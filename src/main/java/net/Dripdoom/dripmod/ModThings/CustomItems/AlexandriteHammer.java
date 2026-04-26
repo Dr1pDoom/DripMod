@@ -31,17 +31,14 @@ public class AlexandriteHammer extends Item {
     public AlexandriteHammer(Properties pProperties) {
         super(pProperties);
     }
-<<<<<<< HEAD
     boolean aBoolean;
-=======
 
 //Mines through a 3×3 area around a block that is mined.
-//Does not work in creative, will have to create a separate event for it
-//I'm also planning to add a custom GUI when it is right clicked.
+//Does not work in creative, will have to create a separate event for it,
+//I'm also planning to add a custom GUI when it is right-clicked.
 //Stay tuned for that. Once I get my laptop again, I will start working on it.
 //Comments have ended. Stop reading! You ain't a nerd!!
 
->>>>>>> 4620073e90a8e415855b40425823e8a320e596c4
     @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pMiningEntity) {
         if (pLevel.isClientSide) return false;

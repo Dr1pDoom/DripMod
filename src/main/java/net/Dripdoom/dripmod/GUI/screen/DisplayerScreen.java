@@ -37,14 +37,17 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
     Predicate<String> predicate = s -> {return s.matches("^\\d*$");};
     Connection clientboundconnection = null;
 
+    int topPos1 = this.topPos;
+    int leftPos1 = this.leftPos;
 
-    double centerX = this.width / 2 + 430;
+
+    double centerX = this.width / 2 + 440;
     double centerY = this.height / 2 + 200;
     int w = 200;
     int h = 20;
     int gap = 40;
-    int totalWidth = 680;
-    double startX = centerX - totalWidth / 2;
+    int totalWidth = (200 * 3) + (40 * 2);
+    double startX = centerX - (totalWidth / 2);
 
     private boolean ClickedOrNot;
 
@@ -109,8 +112,6 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
 
             }
 
-
-
         }).bounds((int)centerX - w / 2, (int)centerY + 30, w, h).build();
 
         this.addRenderableWidget(editBox);
@@ -118,10 +119,26 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
         this.addRenderableWidget(editBox2);
         this.addRenderableWidget(button);
 
+        System.out.println("leftPos: " + this.leftPos);
+        System.out.println("topPos: " + this.topPos);
+        System.out.println("imageWidth: " + this.imageWidth);
+        System.out.println("imageHeight: " + this.imageHeight);
+        System.out.println("height: " + this.height);
+        System.out.println("width: " + this.width);
+
     }
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+
+        pGuiGraphics.fill(
+                leftPos1 - 200,
+                topPos1 - 100,
+                leftPos1 + imageWidth + 200,
+                topPos1 + imageHeight + 100,
+                0xFFFFFFFF
+        );
+
         pGuiGraphics.pose().pushPose();
         pGuiGraphics.pose().scale(1.5f, 1.5f, 1.5f);
 
@@ -130,8 +147,6 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
                     ? playerInventory.getArmor(3 - i)
                     : ItemStack.EMPTY, this.leftPos + 20, this.topPos + 50 + (10 * i));
         }
-
-        pGuiGraphics.fill((int)centerX - w, (int)centerY - h, (int)centerX + w, (int)centerY + h, 0x80FFFFFF);
 
         pGuiGraphics.pose().popPose();
     }
@@ -160,24 +175,32 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
         if (this.editBox.keyPressed(pKeyCode, pScanCode, pModifiers) || this.editBox1.keyPressed(pKeyCode, pScanCode, pModifiers) || this.editBox2.keyPressed(pKeyCode, pScanCode, pModifiers)) {
             return true;
         }
-        this.ClickedOrNot = true;
+
         return super.keyPressed(pKeyCode, pScanCode, pModifiers);
     }
 
     @Override
-    public boolean keyReleased(int pKeyCode, int pScanCode, int pModifiers) {
+    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+
+        this.ClickedOrNot = true;
+
+        return super.mouseClicked(pMouseX, pMouseY, pButton);
+    }
+
+    @Override
+    public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
 
         if(this.ClickedOrNot) this.ClickedOrNot = false;
 
-        return super.keyReleased(pKeyCode, pScanCode, pModifiers);
+        return super.mouseReleased(pMouseX, pMouseY, pButton);
     }
 
     @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
 
         if(this.ClickedOrNot){
-            this.centerX = pMouseX;
-            this.centerY = pMouseY;
+            this.leftPos1 += pDragX;
+            this.topPos1 += pDragY;
         }
 
         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);

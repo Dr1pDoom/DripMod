@@ -23,12 +23,6 @@ public record DataSavePacket(double PosX, double PosY, double PosZ) {
     }
 
     public static void handlePacket(DataSavePacket packet, CustomPayloadEvent.Context ctx) {
-        if (ctx.getSender() != null) {
-            AbstractContainerMenu opened_menu =  ctx.getSender().containerMenu;
-            if(opened_menu instanceof DisplayerMenu displayerMenu){
-                ItemDisplayerBlockEntity be = displayerMenu.getBlockEntity();
-                be.setSavePos(packet.PosX(), packet.PosY(), packet.PosZ());
-            }
-        }
+
     }
 }
