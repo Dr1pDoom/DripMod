@@ -1,12 +1,15 @@
 package net.Dripdoom.dripmod;
 
 import com.mojang.logging.LogUtils;
+import net.Dripdoom.dripmod.GUI.registries.ModMenuRegistry;
+import net.Dripdoom.dripmod.GUI.screen.DisplayerScreen;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlockEntities;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlocks;
 import net.Dripdoom.dripmod.ModThings.CustomItems.ItemRegistries.ModItem;
+import net.Dripdoom.dripmod.Networking.PacketChannel;
+import net.Dripdoom.dripmod.components.ModDataComponents;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,6 +47,8 @@ public class DripMod
         ModCreativeModeTabs.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModDataComponents.register(modEventBus);
+        ModMenuRegistry.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -54,7 +59,9 @@ public class DripMod
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        event.enqueueWork(PacketChannel::registerLightningPacket);
+        event.enqueueWork(PacketChannel::registerDataSavePacket);
+        event.enqueueWork(PacketChannel::registerDataLoadPacket);
     }
 
     // Add the example block item to the building blocks tab
@@ -81,6 +88,8 @@ public class DripMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            MenuScreens.register(ModMenuRegistry.DISPLAYER_MENU.get(), DisplayerScreen::new);
         }
     }
+
 }

@@ -1,26 +1,37 @@
 package net.Dripdoom.dripmod.ModThings.CustomItems;
 
+import net.Dripdoom.dripmod.components.ModDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
 
 
 public class AlexandriteHammer extends Item {
     public AlexandriteHammer(Properties pProperties) {
         super(pProperties);
     }
-
+    boolean aBoolean;
     @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pMiningEntity) {
         if (pLevel.isClientSide) return false;
@@ -70,4 +81,36 @@ public class AlexandriteHammer extends Item {
 
         return super.mineBlock(pStack, pLevel, pState, pPos, pMiningEntity);
     }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(player.getItemInHand(hand));
+    }
+
+    @Override
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        if (pLevel.isClientSide()) return;
+        if (!(pLivingEntity instanceof Player pPlayer)) return;
+
+        Vec3 eyePos = pPlayer.getEyePosition();
+        Vec3 look = pPlayer.getLookAngle();
+        Vec3 target = eyePos.add(look.scale(10));
+
+        AABB box = new AABB(eyePos, target).inflate(1.0D);
+
+        List<Entity> entities = pLevel.getEntities(pPlayer, box,
+                e -> !e.isSpectator() && e.isAlive());
+
+        for (Entity entity : entities) {
+            if (entity.getBoundingBox().intersects(box) && entity instanceof LivingEntity livingEntity) {
+                livingEntity.setPos(target);
+                livingEntity.setNoGravity(true);
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING));
+            }
+        }
+
+        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+    }
+
 }

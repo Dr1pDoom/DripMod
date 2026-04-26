@@ -1,0 +1,13 @@
+{
+  "package": "net.Dripdoom.dripmod.mixins",
+  "refmap": "dripmod.mixins.refmap.json",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

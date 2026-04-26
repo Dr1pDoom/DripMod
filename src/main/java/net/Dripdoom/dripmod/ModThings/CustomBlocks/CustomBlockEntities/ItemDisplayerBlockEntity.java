@@ -1,5 +1,7 @@
 package net.Dripdoom.dripmod.ModThings.CustomBlocks.CustomBlockEntities;
 
+import net.Dripdoom.dripmod.GUI.menu.DisplayerMenu;
+import net.Dripdoom.dripmod.GUI.registries.ModMenuRegistry;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlockEntities;
 
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.ItemDisplayerBlock;
@@ -27,6 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDisplayerBlockEntity extends BlockEntity implements MenuProvider {
+
+    public ItemDisplayerBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(ModBlockEntities.ItemDisplayerEntity.get(), pPos, pBlockState);
+    }
+
     public final ItemStackHandler inventory = new ItemStackHandler(2) {
         @Override
         protected int getStackLimit(int slot, @NotNull ItemStack stack) {
@@ -48,10 +55,6 @@ public class ItemDisplayerBlockEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    public ItemDisplayerBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.ItemDisplayerEntity.get(), pPos, pBlockState);
-    }
-
     public List<ItemStack> drops() {
         List<ItemStack> items = new ArrayList<>();
         for (int i = 0; i < inventory.getSlots(); i++) {
@@ -60,6 +63,7 @@ public class ItemDisplayerBlockEntity extends BlockEntity implements MenuProvide
         }
         return items;
     }
+
 
     @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
@@ -101,6 +105,6 @@ public class ItemDisplayerBlockEntity extends BlockEntity implements MenuProvide
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
+        return new DisplayerMenu(pContainerId, pPlayerInventory, this);
     }
 }

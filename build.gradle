@@ -4,6 +4,8 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7+'
+
 }
 
 version = mod_version
@@ -142,6 +144,14 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+mixin {
+    // Tells Forge where your mixin config is located
+    add sourceSets.main, "dripmod.mixins.refmap.json"
+    config "dripmod.mixins.json"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
