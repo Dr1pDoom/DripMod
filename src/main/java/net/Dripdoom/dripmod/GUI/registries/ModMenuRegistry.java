@@ -10,10 +10,18 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModMenuRegistry {
+<<<<<<< HEAD
 
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, DripMod.MOD_ID);
 
+=======
+    
+    public static final DeferredRegister<MenuType<?>> MENUS =
+            DeferredRegister.create(ForgeRegistries.MENU_TYPES, DripMod.MOD_ID);
+
+    
+>>>>>>> 4620073e90a8e415855b40425823e8a320e596c4
     public static final RegistryObject<MenuType<DisplayerMenu>> DISPLAYER_MENU =
             MENUS.register("displayermenu",
                     () -> IForgeMenuType.create(DisplayerMenu::new));

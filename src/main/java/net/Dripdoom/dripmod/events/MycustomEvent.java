@@ -18,7 +18,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 @Mod.EventBusSubscriber(modid = DripMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class MycustomEvent {
-
+// This is an event that destroys leaves in a 20×20×20 area when a sheep is unalived!
     @SubscribeEvent
     public static void Myevent(LivingDeathEvent event){
         LivingEntity entity = event.getEntity();

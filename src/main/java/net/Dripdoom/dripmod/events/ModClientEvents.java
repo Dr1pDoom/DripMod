@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import java.util.ArrayList;
 import java.util.List;
 
- // Replace with your modid
+ // Ignore this garbage, It's a junk event that will eat through your computer
 public class ModClientEvents {
 
     public static List<BlockPos> blockpos(Level level, AABB box){
