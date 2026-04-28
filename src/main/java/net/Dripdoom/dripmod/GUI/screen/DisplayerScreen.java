@@ -20,6 +20,60 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 
+/*
+*
+* Some Important info for me regarding the coordinate system used in the GUI of a container so that it becomes easier for me to
+* expand or add new features on the GUI. It took me 1 hour to format, reasearch and type this shit.
+*
+*/
+
+/*
+ * ===== Minecraft Window & GUI Coordinates =====
+ *
+ * There are TWO coordinate systems:
+ *
+ * 1. Raw Window (actual screen pixels)
+ *    - window.getWidth()
+ *    - window.getHeight()
+ *    - Real resolution (1920x1080 for my device)
+ *    - Used for rendering, OpenGL, low-level stuff (not meant or atleast usefull for our ass in most cases)
+ *
+ * 2. GUI Scaled (used for UI elements)
+ *    - int screenWidrh = Minecraft.getInstance().getWindow().getGuiScaledWidth();
+ *    - int screenHeight = Minecraft.getInstance().getWindow().getGuiScaledHeight();
+ *    - Scaled based on GUI scale setting
+ *    - Used for screens, buttons, text, containers
+ *
+ * ---------------------------------------------
+ *
+ * ===== Container GUI Positioning =====
+ *
+ * In AbstractContainerScreen:
+ *
+ * - leftPos  = X position of GUI (from left side of the screen)
+ * - topPos   = Y position of GUI (from top of the screen)
+ * - imageWidth = GUI width
+ * - imageHeight = GUI height
+ *
+ * GUI is usually centered:
+ * leftPos = (screenWidth - imageWidth) / 2
+ * topPos  = (screenHeight - imageHeight) / 2
+ *
+ * ---------------------------------------------
+ *
+ * ===== Placing Elements Correctly =====
+ *
+ * Always position relative to GUI:
+ *
+ *   x = leftPos + offsetX;
+ *   y = topPos  + offsetY;
+ *
+ * Example:
+ *   button at (10, 20) inside GUI -
+ *   x = leftPos + 10;
+ *   y = topPos  + 20;
+ *
+ */
 
 public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
 
@@ -221,22 +275,9 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
     @Override
     public void onClose() {
 
-//        if(Minecraft.getInstance().getConnection() != null && this.clientboundconnection == null){
-//            this.clientboundconnection = Minecraft.getInstance().getConnection().getConnection();
-//        }
-//
-//        if(this.clientboundconnection != null){
-//            PacketChannel.channel.send(new DataSavePacket(
-//                    editBox.getValue().isEmpty() ? 0 : Integer.parseInt(editBox.getValue()),
-//                    editBox1.getValue().isEmpty() ? 0 : Integer.parseInt(editBox1.getValue()),
-//                    editBox2.getValue().isEmpty() ? 0 : Integer.parseInt(editBox2.getValue())), this.clientboundconnection);
-//        }
-
-
         PosX = editBox.getValue().isEmpty() ? 0 : Integer.parseInt(editBox.getValue());
         PosY = editBox1.getValue().isEmpty() ? 0 : Integer.parseInt(editBox1.getValue());
         PosZ = editBox2.getValue().isEmpty() ? 0 : Integer.parseInt(editBox2.getValue());
-
 
         super.onClose();
     }

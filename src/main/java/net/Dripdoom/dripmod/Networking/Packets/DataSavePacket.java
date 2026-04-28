@@ -1,10 +1,7 @@
 package net.Dripdoom.dripmod.Networking.Packets;
 
-import net.Dripdoom.dripmod.GUI.menu.DisplayerMenu;
-import net.Dripdoom.dripmod.ModThings.CustomBlocks.CustomBlockEntities.ItemDisplayerBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.event.network.CustomPayloadEvent;
 
 public record DataSavePacket(double PosX, double PosY, double PosZ) {

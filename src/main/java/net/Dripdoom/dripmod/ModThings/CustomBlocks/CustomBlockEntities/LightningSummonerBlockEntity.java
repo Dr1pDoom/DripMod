@@ -1,10 +1,8 @@
 package net.Dripdoom.dripmod.ModThings.CustomBlocks.CustomBlockEntities;
 
 import net.Dripdoom.dripmod.GUI.menu.DisplayerMenu;
-import net.Dripdoom.dripmod.GUI.registries.ModMenuRegistry;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlockEntities;
 
-import net.Dripdoom.dripmod.ModThings.CustomBlocks.ItemDisplayerBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +12,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -28,9 +25,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDisplayerBlockEntity extends BlockEntity implements MenuProvider {
+public class LightningSummonerBlockEntity extends BlockEntity implements MenuProvider {
 
-    public ItemDisplayerBlockEntity(BlockPos pPos, BlockState pBlockState) {
+    public LightningSummonerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ItemDisplayerEntity.get(), pPos, pBlockState);
     }
 
