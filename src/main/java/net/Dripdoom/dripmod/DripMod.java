@@ -2,7 +2,7 @@ package net.Dripdoom.dripmod;
 
 import com.mojang.logging.LogUtils;
 import net.Dripdoom.dripmod.GUI.registries.ModMenuRegistry;
-import net.Dripdoom.dripmod.GUI.screen.DisplayerScreen;
+import net.Dripdoom.dripmod.GUI.screen.LightningSummonerDisplayScreen;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlockEntities;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlocks;
 import net.Dripdoom.dripmod.ModThings.CustomItems.ItemRegistries.ModItem;
@@ -88,7 +88,7 @@ public class DripMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-            MenuScreens.register(ModMenuRegistry.DISPLAYER_MENU.get(), DisplayerScreen::new);
+            MenuScreens.register(ModMenuRegistry.DISPLAYER_MENU.get(), LightningSummonerDisplayScreen::new);
         }
     }
 

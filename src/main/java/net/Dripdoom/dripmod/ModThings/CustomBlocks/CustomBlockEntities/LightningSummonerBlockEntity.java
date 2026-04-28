@@ -1,6 +1,6 @@
 package net.Dripdoom.dripmod.ModThings.CustomBlocks.CustomBlockEntities;
 
-import net.Dripdoom.dripmod.GUI.menu.DisplayerMenu;
+import net.Dripdoom.dripmod.GUI.menu.LightningSummonerDisplayMenu;
 import net.Dripdoom.dripmod.ModThings.CustomBlocks.BlockRegistries.ModBlockEntities;
 
 import net.minecraft.core.BlockPos;
@@ -31,47 +31,47 @@ public class LightningSummonerBlockEntity extends BlockEntity implements MenuPro
         super(ModBlockEntities.ItemDisplayerEntity.get(), pPos, pBlockState);
     }
 
-    public final ItemStackHandler inventory = new ItemStackHandler(2) {
-        @Override
-        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
-            return 1;
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-            if (level != null && !level.isClientSide) {
-                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-            }
-        }
-    };
-
-    public void clearContents() {
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            inventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
-    }
-
-    public List<ItemStack> drops() {
-        List<ItemStack> items = new ArrayList<>();
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            ItemStack Items = inventory.getStackInSlot(i);
-            items.add(Items.copy());
-        }
-        return items;
-    }
+//    public final ItemStackHandler inventory = new ItemStackHandler(2) {
+//        @Override
+//        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+//            return 1;
+//        }
+//
+//        @Override
+//        protected void onContentsChanged(int slot) {
+//            setChanged();
+//            if (level != null && !level.isClientSide) {
+//                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+//            }
+//        }
+//    };
+//
+//    public void clearContents() {
+//        for (int i = 0; i < inventory.getSlots(); i++) {
+//            inventory.setStackInSlot(i, ItemStack.EMPTY);
+//        }
+//    }
+//
+//    public List<ItemStack> drops() {
+//        List<ItemStack> items = new ArrayList<>();
+//        for (int i = 0; i < inventory.getSlots(); i++) {
+//            ItemStack Items = inventory.getStackInSlot(i);
+//            items.add(Items.copy());
+//        }
+//        return items;
+//    }
 
 
     @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
-        pTag.put("inventory", inventory.serializeNBT(pRegistries));
+//        pTag.put("inventory", inventory.serializeNBT(pRegistries));
     }
 
     @Override
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
-        inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
+//        inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
     }
 
     @Nullable
@@ -102,6 +102,6 @@ public class LightningSummonerBlockEntity extends BlockEntity implements MenuPro
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new DisplayerMenu(pContainerId, pPlayerInventory, this);
+        return new LightningSummonerDisplayMenu(pContainerId, pPlayerInventory, this);
     }
 }

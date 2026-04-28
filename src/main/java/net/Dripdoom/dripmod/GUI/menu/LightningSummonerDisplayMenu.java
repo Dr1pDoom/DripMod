@@ -9,18 +9,18 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class DisplayerMenu extends AbstractContainerMenu {
+public class LightningSummonerDisplayMenu extends AbstractContainerMenu {
     private final LightningSummonerBlockEntity be;
     private final Level level;
 
 
-    public DisplayerMenu(int id, Inventory playerInv, LightningSummonerBlockEntity be) {
+    public LightningSummonerDisplayMenu(int id, Inventory playerInv, LightningSummonerBlockEntity be) {
         super(ModMenuRegistry.DISPLAYER_MENU.get(), id);
         this.level = playerInv.player.level();
         this.be = be;
     }
 
-    public DisplayerMenu(int id, Inventory playerInv, FriendlyByteBuf byteBuf) {
+    public LightningSummonerDisplayMenu(int id, Inventory playerInv, FriendlyByteBuf byteBuf) {
         this(id, playerInv, (LightningSummonerBlockEntity) playerInv.player.level().getBlockEntity(byteBuf.readBlockPos()));
     }
 

@@ -1,7 +1,7 @@
 package net.Dripdoom.dripmod.GUI.registries;
 
 import net.Dripdoom.dripmod.DripMod;
-import net.Dripdoom.dripmod.GUI.menu.DisplayerMenu;
+import net.Dripdoom.dripmod.GUI.menu.LightningSummonerDisplayMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -16,9 +16,9 @@ public class ModMenuRegistry {
 
 
 
-    public static final RegistryObject<MenuType<DisplayerMenu>> DISPLAYER_MENU =
+    public static final RegistryObject<MenuType<LightningSummonerDisplayMenu>> DISPLAYER_MENU =
             MENUS.register("displayermenu",
-                    () -> IForgeMenuType.create(DisplayerMenu::new));
+                    () -> IForgeMenuType.create(LightningSummonerDisplayMenu::new));
 
     public static void register(IEventBus eventbus){
         MENUS.register(eventbus);

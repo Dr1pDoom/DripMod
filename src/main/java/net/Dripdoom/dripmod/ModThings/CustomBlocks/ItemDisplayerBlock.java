@@ -56,14 +56,14 @@ public class ItemDisplayerBlock extends BaseEntityBlock {
 
     @Override
     protected void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        if(pState.getBlock() != pNewState.getBlock()){
-            if(pLevel.getBlockEntity(pPos) instanceof LightningSummonerBlockEntity lightningSummonerBlockEntity){
-                for(ItemStack items : lightningSummonerBlockEntity.drops()){
-                    popResource(pLevel, pPos, items);
-                    pLevel.updateNeighbourForOutputSignal(pPos, pState.getBlock());
-                }
-            }
-        }
+//        if(pState.getBlock() != pNewState.getBlock()){
+//            if(pLevel.getBlockEntity(pPos) instanceof LightningSummonerBlockEntity lightningSummonerBlockEntity){
+//                for(ItemStack items : lightningSummonerBlockEntity.drops()){
+//                    popResource(pLevel, pPos, items);
+//                    pLevel.updateNeighbourForOutputSignal(pPos, pState.getBlock());
+//                }
+//            }
+//        }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 
@@ -73,16 +73,6 @@ public class ItemDisplayerBlock extends BaseEntityBlock {
             if(pLevel.getBlockEntity(pPos) instanceof LightningSummonerBlockEntity lightningSummonerBlockEntity) {
                 ((ServerPlayer) pPlayer)
                         .openMenu(new SimpleMenuProvider(lightningSummonerBlockEntity, Component.literal("")), pPos);
-
-
-//                Connection connection = ((ServerPlayer)pPlayer).connection.getConnection();
-//
-//                PacketChannel.channel.send(new LightningC2SPacket(
-//                        itemDisplayerBlockEntity.getSavePosX(),
-//                        itemDisplayerBlockEntity.getSavePosY(),
-//                        itemDisplayerBlockEntity.getSavePosZ()
-//                ), connection);
-
 
                 return InteractionResult.SUCCESS;
             }

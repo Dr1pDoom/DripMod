@@ -1,8 +1,7 @@
 package net.Dripdoom.dripmod.GUI.screen;
 
-import net.Dripdoom.dripmod.GUI.menu.DisplayerMenu;
+import net.Dripdoom.dripmod.GUI.menu.LightningSummonerDisplayMenu;
 import net.Dripdoom.dripmod.Networking.PacketChannel;
-import net.Dripdoom.dripmod.Networking.Packets.DataSavePacket;
 import net.Dripdoom.dripmod.Networking.Packets.LightningC2SPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -11,11 +10,9 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.Channel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
@@ -75,7 +72,7 @@ import java.util.function.Predicate;
  *
  */
 
-public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
+public class LightningSummonerDisplayScreen extends AbstractContainerScreen<LightningSummonerDisplayMenu> {
 
     public EditBox editBox;
     public EditBox editBox1;
@@ -106,7 +103,7 @@ public class DisplayerScreen extends AbstractContainerScreen<DisplayerMenu> {
     private boolean ClickedOrNot;
 
 
-    public DisplayerScreen(DisplayerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public LightningSummonerDisplayScreen(LightningSummonerDisplayMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         this.player = pPlayerInventory.player;
         this.playerInventory = pPlayerInventory;
